@@ -1,0 +1,39 @@
+php_botan
+---------
+Version du fichier : 20070122-1
+
+php_botan est une extension PECL pour PHP permettant d'utiliser la librairie cryptographique Botan.
+http://botan.randombit.net/
+
+Notes
+-----
+- Respect des conventions PHP (http://cvs.php.net/viewvc.cgi/php-src/CODING_STANDARDS?view=markup)
+
+
+TODO
+----
+
+0.1 :
+- Création de l'extension pour PHP 5.x
+- Fonction de base permettant d'afficher la version de la librairie Botan
+- Compilation pour Linux
+
+0.2 :
+- Ajout des fonctions DSA
+
+0.3 :
+- Ajout des fonctions RSA, MDx, SHAx
+
+0.4 : 
+- Ajout de la gestion des clés
+
+0.5 :
+- Adaptation des fonctions selon la version de la librairie Botan (1.4/1.6)
+- Ajout des certificats
+- Ajout d'options dans le .ini
+- Support PHP 4.x
+- Compilation pour Windows
+
+1.0 :
+- Implémentation de toutes les fonctionnalités de Botan
+- Compilation pour toutes plateformes
