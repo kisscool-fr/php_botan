@@ -1,0 +1,19 @@
+realname "AEP Engine"
+
+uses_external_libs
+
+<add>
+eng_aep.cpp
+aep_main.cpp
+aep_conn.cpp
+eng_aep.h
+es_aep.h
+hw_aep.h
+aep_conn.h
+</add>
+
+define ENGINE_AEP,ENTROPY_SRC_AEP
+
+<libs>
+all -> aep
+</libs>

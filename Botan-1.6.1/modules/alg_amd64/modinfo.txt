@@ -1,0 +1,29 @@
+realname "Algorithm x86-64 Assembler"
+
+mp_bits 64
+
+<ignore>
+mp_mulop.cpp
+</ignore>
+
+<add>
+asm_macr.h
+mp_mulop.S
+</add>
+
+<arch>
+amd64
+</arch>
+
+<cc>
+gcc
+icc
+</cc>
+
+# ELF systems
+<os>
+linux
+freebsd
+netbsd
+openbsd
+</os>

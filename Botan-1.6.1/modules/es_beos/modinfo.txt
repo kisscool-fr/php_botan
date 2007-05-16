@@ -1,0 +1,16 @@
+realname "BeOS Entropy Source"
+
+define ENTROPY_SRC_BEOS
+
+<add>
+es_beos.h
+es_beos.cpp
+</add>
+
+<os>
+beos
+</os>
+
+<libs>
+beos -> root,be
+</libs>
