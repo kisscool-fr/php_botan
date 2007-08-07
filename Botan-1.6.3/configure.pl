@@ -9,7 +9,7 @@ use File::Copy;
 
 my $MAJOR_VERSION = 1;
 my $MINOR_VERSION = 6;
-my $PATCH_VERSION = 1;
+my $PATCH_VERSION = 3;
 
 my $VERSION_STRING = "$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION";
 
@@ -1583,8 +1583,9 @@ sub guess_cpu_from_this
 
     $cpu = 'core2duo' if($cpuinfo =~ /intel\(r\) core\(tm\)2/);
 
-    $cpu = 'amd64' if($cpuinfo =~ /athlon64/);
-    $cpu = 'amd64' if($cpuinfo =~ /opteron/);
+    $cpu = 'athlon64' if($cpuinfo =~ /athlon64/);
+    $cpu = 'athlon64' if($cpuinfo =~ /athlon\(tm\) 64/);
+    $cpu = 'opteron' if($cpuinfo =~ /opteron/);
 
     # The 32-bit SPARC stuff is impossible to match to arch type easily, and
     # anyway the uname stuff will pick up that it's a SPARC so it doesn't

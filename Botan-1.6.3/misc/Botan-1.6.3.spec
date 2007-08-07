@@ -8,7 +8,7 @@
 ##################################################
 %define MAJOR 1
 %define MINOR 6
-%define PATCH 1
+%define PATCH 3
 
 %define ONLY_BASE_MODS 0
 
