@@ -37,3 +37,18 @@ TODO
 1.0 :
 - Implémentation de toutes les fonctionnalités de Botan
 - Compilation pour toutes plateformes
+
+
+
+Function list
+-------------
+* string botan_version()
+
+
+Class List
+----------
+* Properties
+	string version
+	
+* Method
+	Botan()
