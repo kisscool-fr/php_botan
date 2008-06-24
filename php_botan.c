@@ -2,6 +2,8 @@
 #include "config.h"
 #endif
 
+#include <botan/botan.h>
+
 #include "php.h"
 #include "php_botan.h"
 
@@ -33,5 +35,8 @@ ZEND_GET_MODULE(botan)
 
 PHP_FUNCTION(botan_version)
 {
+	LibraryInitializer init;
+	/* now do stuff */
+
 	RETURN_STRING(PHP_BOTAN_VERSION, 1);
 }
