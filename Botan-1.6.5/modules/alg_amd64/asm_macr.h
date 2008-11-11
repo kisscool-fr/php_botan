@@ -3,8 +3,12 @@
 * (C) 1999-2007 The Botan Project                *
 *************************************************/
 
-#ifndef BOTAN_EXT_ASM_MACROS_H__
-#define BOTAN_EXT_ASM_MACROS_H__
+#ifndef BOTAN_EXT_AMD64_ASM_MACROS_H__
+#define BOTAN_EXT_AMD64_ASM_MACROS_H__
+
+#ifdef __ELF__
+.section .note.GNU-stack,"",%progbits
+#endif
 
 /*************************************************
 * General/Global Macros                          *
@@ -14,13 +18,12 @@
 #define START_LISTING(FILENAME) \
    .file #FILENAME;             \
    .text;                       \
-   .p2align 4,,15;
+   ALIGN;
 
 /*************************************************
 * Function Definitions                           *
 *************************************************/
 #define START_FUNCTION(func_name) \
-   .align   8;                    \
    ALIGN;                         \
    .global  func_name;            \
    .type    func_name,@function;  \
@@ -37,87 +40,49 @@ func_name:
    LABEL##_LOOP:
 
 #define LOOP_UNTIL_EQ(REG, NUM, LABEL) \
-   cmpl IMM(NUM), REG;                 \
+   cmp IMM(NUM), REG;                  \
    jne LABEL##_LOOP
 
 #define LOOP_UNTIL_LT(REG, NUM, LABEL) \
-   cmpl IMM(NUM), REG;                 \
+   cmp IMM(NUM), REG;                  \
    jge LABEL##_LOOP
 
 /*************************************************
  Conditional Jumps                              *
 *************************************************/
 #define JUMP_IF_ZERO(REG, LABEL) \
-   cmpl IMM(0), REG;             \
+   cmp IMM(0), REG;              \
    jz LABEL
 
 #define JUMP_IF_LT(REG, NUM, LABEL) \
-   cmpl IMM(NUM), REG;              \
+   cmp IMM(NUM), REG;               \
    jl LABEL
-
-/*************************************************
-* Register Names                                 *
-*************************************************/
-#define EAX %eax
-#define EBX %ebx
-#define ECX %ecx
-#define EDX %edx
-#define EBP %ebp
-#define EDI %edi
-#define ESI %esi
-#define ESP %esp
 
 /*************************************************
 * Memory Access Operations                       *
 *************************************************/
-#define ARRAY1(REG, NUM) (NUM)(REG)
-#define ARRAY4(REG, NUM) 4*(NUM)(REG)
-#define ARRAY4_INDIRECT(BASE, OFFSET, NUM) 4*(NUM)(BASE,OFFSET,4)
-#define ARG(NUM) 4*(PUSHED) + ARRAY4(ESP, NUM)
+#define ARRAY8(REG, NUM) 8*(NUM)(REG)
 
-#define ASSIGN(TO, FROM) movl FROM, TO
-#define ASSIGN_BYTE(TO, FROM) movzbl FROM, TO
-
-#define PUSH(REG) pushl REG
-#define POP(REG) popl REG
-
-#define SPILL_REGS() \
-   PUSH(EBP) ; \
-   PUSH(EDI) ; \
-   PUSH(ESI) ; \
-   PUSH(EBX)
-
-#define RESTORE_REGS() \
-   POP(EBX) ;  \
-   POP(ESI) ;  \
-   POP(EDI) ;  \
-   POP(EBP)
+#define ASSIGN(TO, FROM) mov FROM, TO
 
 /*************************************************
 * ALU Operations                                 *
 *************************************************/
 #define IMM(VAL) $VAL
 
-#define ADD(TO, FROM) addl FROM, TO
+#define ADD(TO, FROM) addq FROM, TO
+#define ADD_LAST_CARRY(REG) adcq IMM(0), REG
 #define ADD_IMM(TO, NUM) ADD(TO, IMM(NUM))
-#define ADD_W_CARRY(TO1, TO2, FROM) addl FROM, TO1; adcl IMM(0), TO2;
-#define SUB_IMM(TO, NUM) subl IMM(NUM), TO
-#define ADD2_IMM(TO, FROM, NUM) leal NUM(FROM), TO
-#define ADD3_IMM(TO, FROM, NUM) leal NUM(TO,FROM,1), TO
-#define MUL(REG) mull REG
+#define ADD_W_CARRY(TO1, TO2, FROM) addq FROM, TO1; adcq IMM(0), TO2;
+#define SUB_IMM(TO, NUM) sub IMM(NUM), TO
+#define MUL(REG) mulq REG
 
-#define SHL_IMM(REG, SHIFT) shll IMM(SHIFT), REG
-#define SHR_IMM(REG, SHIFT) shrl IMM(SHIFT), REG
-#define SHL2_3(TO, FROM) leal 0(,FROM,8), TO
-
-#define XOR(TO, FROM) xorl FROM, TO
-#define AND(TO, FROM) andl FROM, TO
-#define OR(TO, FROM) orl FROM, TO
-#define NOT(REG) notl REG
+#define XOR(TO, FROM) xorq FROM, TO
+#define AND(TO, FROM) andq FROM, TO
+#define OR(TO, FROM) orq FROM, TO
+#define NOT(REG) notq REG
 #define ZEROIZE(REG) XOR(REG, REG)
 
-#define ROTL_IMM(REG, NUM) roll IMM(NUM), REG
-#define ROTR_IMM(REG, NUM) rorl IMM(NUM), REG
-#define BSWAP(REG) bswapl REG
+#define RETURN_VALUE_IS(V) ASSIGN(%rax, V)
 
 #endif

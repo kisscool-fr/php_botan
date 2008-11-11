@@ -6,9 +6,9 @@
 ##################################################
 # Version numbers and config options             #
 ##################################################
-%define MAJOR 1
-%define MINOR 6
-%define PATCH 3
+%define MAJOR $MAJOR
+%define MINOR $MINOR
+%define PATCH $PATCH
 
 %define ONLY_BASE_MODS 0
 
