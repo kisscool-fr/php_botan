@@ -28,7 +28,7 @@ TODO
 - Ajout de la gestion des clés
 
 0.5 :
-- Adaptation des fonctions selon la version de la librairie Botan (1.4/1.6)
+- Adaptation des fonctions selon la version de la librairie Botan
 - Ajout des certificats
 - Ajout d'options dans le .ini
 - Support PHP 4.x
