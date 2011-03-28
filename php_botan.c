@@ -13,7 +13,7 @@ static function_entry botan_functions[] = {
 };
 
 zend_module_entry botan_module_entry = {
-#if ZEND_MODULE_API_NO >= 20010901
+#if ZEND_MODULE_API_NO >= 20090626
 	STANDARD_MODULE_HEADER,
 #endif
 	PHP_BOTAN_EXTNAME,
@@ -23,7 +23,7 @@ zend_module_entry botan_module_entry = {
 	NULL,
 	NULL,
 	NULL,
-#if ZEND_MODULE_API_NO >= 20010901
+#if ZEND_MODULE_API_NO >= 20090626
 	PHP_BOTAN_VERSION,
 #endif
 	STANDARD_MODULE_PROPERTIES
