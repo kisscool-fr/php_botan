@@ -1,10 +1,3 @@
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
-#include <botan/botan.h>
-
-#include "php.h"
 #include "php_botan.h"
 
 static function_entry botan_functions[] = {
@@ -12,31 +5,38 @@ static function_entry botan_functions[] = {
 	{NULL, NULL, NULL}
 };
 
+PHP_MINIT_FUNCTION(botan)
+{
+    return SUCCESS;
+}
+
 zend_module_entry botan_module_entry = {
-#if ZEND_MODULE_API_NO >= 20090626
+#if ZEND_MODULE_API_NO >= 20010901
 	STANDARD_MODULE_HEADER,
 #endif
 	PHP_BOTAN_EXTNAME,
 	botan_functions,
+	PHP_MINIT(botan),
 	NULL,
 	NULL,
 	NULL,
 	NULL,
-	NULL,
-#if ZEND_MODULE_API_NO >= 20090626
-	PHP_BOTAN_VERSION,
+#if ZEND_MODULE_API_NO >= 20010901
+	PHP_BOTAN_EXTVER,
 #endif
 	STANDARD_MODULE_PROPERTIES
 };
 
 #ifdef COMPILE_DL_BOTAN
-ZEND_GET_MODULE(botan)
+extern "C" {
+    ZEND_GET_MODULE(botan)
+}
 #endif
 
 PHP_FUNCTION(botan_version)
 {
-	LibraryInitializer init;
+	Botan::LibraryInitializer init("thread_safe=yes");
 	/* now do stuff */
 
-	RETURN_STRING(PHP_BOTAN_VERSION, 1);
+	RETURN_STRING(PHP_BOTAN_EXTVER, 1);
 }
