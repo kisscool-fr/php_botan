@@ -1,0 +1,5 @@
+php_botan
+
+php_botan is a PECL extension that add the support of Botan cryptographic library into PHP
+
+http://botan.randombit.net/
